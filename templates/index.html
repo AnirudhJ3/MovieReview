@@ -1,0 +1,45 @@
+{% load static %}
+{% static "images" as baseURL  %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MovieReview</title>
+	<meta name="viewport" content="width=device-width, initial scale=1.0" charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+	<link rel="stylesheet" type="text/css" 
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+	
+<body>
+	<div class="header">
+  		<img src="{% static 'images/logo.jpg' %}" class="logo">
+  			<div class="header-right">
+    			<a class="active" href="/">Home</a>
+				
+				{% if user.is_authenticated %}
+					<a>Hello, {{user.first_name}}<a>
+					<a href="accounts/logout">Logout</a>
+				{% else %}	
+					<a href="accounts/register">Register</a>
+					<a href="accounts/login">Login</a>
+				{% endif %}
+  			</div>
+	</div>
+	<div class="container series">
+		<h3>Latest Movies</h3>
+		<div class="row">
+		{% for movie in movies %}
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-6"><img src="{{movie.img.url}}" ><a href="reviews/{{movie.id}}">{{movie.name}}</a></div>
+				
+			</div>
+		</div>
+		{% endfor %}
+		</div>
+
+	</div>
+
+</body>
+</html>
